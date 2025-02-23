@@ -162,10 +162,10 @@
 
     .member-card {
       background: linear-gradient(145deg, #f9fff9 0%, #e8f5e9 100%);
-      padding: 30px;
       border-radius: 20px;
       transition: all 0.4s ease;
       border: 2px solid #e0e0e0;
+      padding: 20px;
     }
 
     .member-card:hover {
@@ -500,7 +500,29 @@
 
     /* Responsive */
     @media (max-width: 768px) {
+      .member-card {
+      grid-template-columns: 1fr;
+    }
+    .member-card h3 {
+      font-size: 1.2rem;
+    }
 
+    .member-card p {
+      font-size: 0.9rem;
+    }
+
+
+    .member-card a {
+      font-weight: 500;
+    }
+
+    .map-container h2 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    }
+    .contact-info h2 {
+     font-size: 1.5rem; 
+    }
       .mode-toggle {
       right: 70px;
       top: 48%;
@@ -516,10 +538,11 @@
         overflow-y: auto;
       }
     .header-title h1 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: #61b413;
-      margin-right: 10px;    
+      margin-right: 1px;
       box-sizing: border-box;
+      margin-left: 10px;
     }
         
       header.header {
@@ -566,7 +589,12 @@
       .map-container iframe {
         height: 350px;
       }
+      @media (max-width: 400px) {
+      .member-card {
+      grid-template-columns: 0.5fr;
+      }
     }
+  }
   </style>
 </head>
 <body>
