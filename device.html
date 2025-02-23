@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+ <html lang="vi"> 
+    <head>
+    <meta charset="UTF-8" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <title>Thiết Bị</title>
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@700&display=swap">
+    <style> 
+    :root {
+      --primary-bg: #f0f9f0;
+      --secondary-bg: #fff;
+      --text-color: #333;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --primary-accent: #76ff03;
+      }
+      body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+        background-color: #f0f0f0;
+        color: #333;
+        line-height: 1.6;
+        background-color: var(--primary-bg);
+        color: var(--text-color);
+      }
+        header.header, .container {
+        background: var(--secondary-bg);
+        box-shadow: 0 4px 10px var(--shadow-color);
+            }
+            .controls-menu a {
+        background: linear-gradient(135deg, var(--primary-accent), #00e676);
+        color: #333;
+            }
+            footer {
+        background-color: #333;
+        color: #fff;
+            }
+            /* Chế độ tối */
+            body.dark-mode {
+        --primary-bg: #1a1a1a;
+        --secondary-bg: #2c2c2c;
+        --text-color: #e0e0e0;
+        --shadow-color: rgba(0, 0, 0, 0.5);
+        --primary-accent: #00e676;
+        background-color: var(--primary-bg);
+            }
+            body.dark-mode header.header,
+            body.dark-mode .container {
+        background: var(--secondary-bg);
+        color: var(--text-color);
+            }
+            body.dark-mode section h2 {
+        color: #e0e0e0;
+        border-left-color: #e0e0e0;
+            }
+
+            body.dark-mode .product h3 {
+        color: #ccc;
+            }
+
+            body.dark-mode figure figcaption {
+        color: #fff;
+            }
+
+            body.dark-mode .modal {
+        background-color: rgba(0, 0, 0, 0.9);
+            }
+
+            body.dark-mode nav.main-menu ul {
+        background: #2c2c2c;
+            }
+            body.dark-mode nav.main-menu ul li a {
+        color: #fff;
+            }
+            body.dark-mode .controls-toggle {
+            background: #ccc;
+            }
+            body.dark-mode .controls-menu  {
+              background: rgba(44,44,44,0.5);
+            }
+            
+        /* Kiểu cho nút chuyển chế độ */
+        .mode-toggle {
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: 24px;
+          color: var(--primary-accent);
+          position: absolute;
+          right: 80px; /* Tránh chồng lấn với controls */
+          top: 50%;
+          transform: translateY(-50%);
+          transition: color 0.3s ease;
+        }
+
+        body.dark-mode .mode-toggle {
+          color: #fff;
+        }
+      header.header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        padding: 2px 50px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border-radius: 25px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: calc(100% - auto);
+        height: 60px;
+        z-index: 9999;
+      }
+      .logo-container,
+      .header-title {
+        display: flex;
+        align-items: center;
+      }
+
+      /* Khoảng cách giữa logo và tiêu đề GPS Nhóm 2 */
+      .header-title {
+        margin-left: 35px;
+      }
+        .header-title h1 {
+          font-size: 1.5rem; /* Điều chỉnh cỡ chữ theo nhu cầu */
+          margin: 0;
+        }
+      .logo-container img {
+        max-width: 50px;
+        height: auto;
+        transition: transform 0.3s ease;
+      }
+      .logo-container img:hover {
+      transform: rotate(360deg) scale(1.15);
+    }
+      nav.main-menu {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 20px;
+        transform: translate(-50%, -50%);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      nav.main-menu ul {
+        list-style: none;
+        display: flex;
+        gap: 80px;
+        margin: 0;
+        padding: 0;
+      }
+      /* Áp dụng hiệu ứng hover riêng cho từng li */
+      nav.main-menu ul li {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 8px;
+      }
+      nav.main-menu ul li:hover {
+        transform: scale(1.55);
+      }
+      nav.main-menu ul li a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+        padding: 8px 15px;
+        transition: all 0.3s ease;
+        border-radius: 25px;
+      }
+      nav.main-menu ul li a:hover {
+    color: #61b413;
+    background: rgba(117, 241, 0, 0.1);
+  }
+
+      /* Hiệu ứng gạch chân cho từng a */
+      nav.main-menu ul li a::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 2px;
+        background: #75f100;
+        transition: width 0.3s ease;
+      }
+      nav.main-menu ul li a:hover::after {
+        width: 100%;
+      }
+      /* Hamburger menu icon cho header */
+      .menu-toggle {
+        display: none;
+        cursor: pointer;
+        font-size: 24px;
+        transition: transform 0.3s ease;
+      }
+      /* Container chung */
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 120px auto 20px auto;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      /* Tiêu đề section */
+      section h2 {
+        margin-top: 0;
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+        border-left: 5px solid #333;
+        padding-left: 10px;
+        color: #444;
+      }
+      
+      /* Sản phẩm / Phần cứng */
+      .product {
+        margin-bottom: 40px;
+      }
+      .product h3 {
+        font-size: 1.2rem;
+        color: #555;
+        margin-bottom: 10px;
+      }
+      /* Hình ảnh sản phẩm */
+      .product-images {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center; /* Căn giữa ảnh */
+        align-items: center; /* Căn giữa theo chiều dọc */
+      }
+      figure {
+        margin: 0;
+        flex: 1 1 250px;
+        max-width: 300px;
+        text-align: center;
+        cursor: zoom-in; /* Hiệu ứng con trỏ cho tính năng phóng to */
+      }
+      figure img {
+        width: 100%;
+        height: 200px; /* Đặt chiều cao cố định */
+        object-fit: contain; /* Hiển thị đầy đủ hình ảnh mà không méo */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      figure img:hover {
+        transform: scale(1.1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+      figure figcaption {
+        font-size: 0.9rem;
+        color: #666;
+        margin-top: 5px;
+      }
+      /* Danh sách gạch đầu dòng */
+      ul {
+        margin-left: 20px;
+        margin-bottom: 10px;
+      }
+      /* Footer */
+      footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        margin-top: 40px;
+      }
+      /* Nút điều khiển cố định ở góc dưới màn hình */
+      .controls {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        transform: translateZ(0);
+      }
+      /* Nút điều khiển mặc định (dành cho desktop) */
+      .controls-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .controls-menu a {
+        background: linear-gradient(135deg, #76ff03, #00e676);
+        color: #fff;
+        border-radius: 25px;
+        padding: 6px 15px;
+        color: #333;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: background 0.3s ease, transform 0.3s ease;
+        font-size: 1rem;
+        text-align: center;
+      }
+      .controls-menu a:hover {
+        background: linear-gradient(135deg, #64dd17, #00c853);
+        transform: scale(1.1);
+      }
+      /* Nút toggle cho menu điều khiển trên mobile */
+      .controls-toggle {
+        display: none;
+        background: #fff;
+        border-radius: 55px;
+        padding: 10px 15px;
+        color: #333;
+        font-size: 24px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+      }
+
+      /* Lightbox Modal cho ảnh */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 10000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+      .modal-content {
+        margin: 5% auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+      }
+      .modal-close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #fff;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+        p,
+        h1,
+        h2,
+        h3 {
+        font-family: 'Open Sans', sans-serif;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        }
+
+        /* Cấu hình cho thẻ p */
+        p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        margin-bottom: 1em;
+        }
+
+        /* Cấu hình cho tiêu đề cấp 1 */
+        h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+        }
+
+        /* Cấu hình cho tiêu đề cấp 2 */
+        h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.75em;
+        }
+
+        /* Cấu hình cho tiêu đề cấp 3 */
+        h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+        }
+
+        .btn-back-to-top {
+            position: fixed;
+            bottom: 90px;
+            right: 35px;
+            background: linear-gradient(135deg, #64dd17, #00c853);
+            color: #fff;
+            animation: bounce 2s infinite;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            border: none;
+            color: #333;
+            font-size: 1.5rem;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .btn-back-to-top.visible {
+            opacity: 1;
+        }
+
+        @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-10px); }
+        60% { transform: translateY(-5px); }
+      }
+
+      /* Media Queries cho mobile */
+      @media (max-width: 768px) {
+
+        .btn-back-to-top {
+            position: fixed;
+            bottom: 170px;
+            right: 50px;
+        }
+        .btn-back-to-top.visible {
+            opacity: 1;
+        }
+        .menu-toggle {
+          display: block;
+          position: absolute;
+          left: auto;
+          right:-50px;
+          transform: translateY(-50%);
+        }
+        nav.main-menu {
+          position: absolute;
+          top: 50%;
+          right: 80px;
+          transform: translateY(-50%);
+        }
+        /* Ẩn menu chính */
+        nav.main-menu ul {
+          display: none;
+          position: absolute;
+          top: 30px;
+          right: -30px;
+          background: #fff;
+          flex-direction: column;
+          gap: 15px;
+          padding: 20px;
+          box-shadow: 0 4px 60px rgba(0, 0, 0, 0.1);
+          border-radius: 15px;
+          text-align: center;
+        }
+        /* Hiển thị menu khi có class show */
+        nav.main-menu ul.show {
+          display: flex;
+          gap: 10px;
+          box-sizing: border-box;
+          right: -70px;
+          z-index: 10;
+        }
+        /* Điều chỉnh kích thước container */
+        .container {
+          margin-top: 80px;
+          margin: 120px auto 20px auto;
+          padding: 15px;
+          width: 95%;
+        }
+        /* Điều chỉnh kích thước ảnh */
+        .product-images {
+          flex-direction: column;
+          align-items: center;
+        }
+        figure {
+          max-width: 100%;
+        }
+        /* tiêu đề */
+        section h2 {
+          animation: fadeIn 1s ease-in-out;
+          font-size: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+          0% { opacity: 0; transform: translateY(-20px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .product h3 {
+          font-size: 1.1rem;
+        }
+        /* Menu điều khiển mobile: Ẩn các nút và hiển thị nút toggle */
+        .controls-menu {
+          display: none;
+          flex-direction: column;
+          gap: 8px;
+          position: absolute;
+          bottom: 60px;
+          right: 0px;
+          background: rgba(255,255,255,0.5);
+          padding: 60px 20px 20px 20px; 
+          border-radius: 20px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          box-sizing: border-box;
+          text-align: center;
+        }
+        .controls-menu.show {
+          display: flex;
+        }
+        .controls-toggle {
+          margin-bottom: 10px;
+          display: block;
+        }
+        .controls-menu a {
+          white-space: nowrap;
+          padding: 10px auto;
+          font-size: 0.9rem;
+        }
+        /* Điều chỉnh vị trí nút điều khiển */
+        .controls {
+          bottom: 20px;
+          right: 15px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        header.header {
+          padding: 2px 20px;
+        }
+        .logo-container img {
+          max-width: 40px;
+        }
+        .container {
+          margin-top: 70px;
+        }
+      }
+    </style>
+   </head>
+   <body>
+     <header class="header">
+       <div class="logo-container">
+         <img src="./images/hvnn.png" alt="Logo Học Viện Nông Nghiệp Việt Nam" />
+       </div>
+       <div class="header-title">
+        <h1>GPS Nhóm 2</h1>
+      </div>
+      
+       <nav class="main-menu">
+        <div class="menu-toggle" onclick="toggleMenu()" aria-label="Mở menu điều hướng">
+          <i class="fas fa-bars"></i>
+        </div>
+         <ul id="nav-menu">
+           <li><a href="map.html">Bản Đồ</a></li>
+           <li><a href="device.html">Device</a></li>
+           <li><a href="lienhe.html">Liên Hệ</a></li>
+         </ul>
+       </nav>
+      <!-- Nút chuyển chế độ -->
+      <button class="mode-toggle" aria-label="Chuyển chế độ tối/sáng">
+        <i class="fas fa-sun"></i>
+      </button>
+       <div class="controls">
+         <div class="controls-toggle" onclick="toggleControls()">
+           <i class="fa-solid fa-bars"></i>
+         </div>
+         <div class="controls-menu">
+          <button class="btn-back-to-top" id="backToTop">↑</button>
+           <a href="#hardware">Phần Cứng</a>
+           <a href="#software">Phần Mềm</a>
+         </div>
+       </div>
+     </header>
+     <div class="container">
+       <!-- Section Giới thiệu dựa trên CHƯƠNG 1 của báo cáo -->
+       <section id="gioi-thieu">
+         <h2>Giới thiệu về thiết bị định vị xe máy</h2>
+         <div class="intro-content">
+           <p>
+             <strong>Giới thiệu:</strong> Thiết bị định vị hay còn gọi là GPS (Hệ thống Định vị Toàn cầu)
+             là công cụ giúp xác định chính xác vị trí của các đối tượng thông qua vệ tinh. Với cơ chế
+             hoạt động dựa trên mạng lưới vệ tinh toàn cầu, GPS thu thập tọa độ địa lý và gửi thông tin
+             về các thiết bị đầu cuối, giúp người dùng theo dõi và quản lý đối tượng trong thời gian thực.
+           </p>
+           <p><strong>Mục đích:</strong></p>
+           <ul>
+             <li>
+               Xác định vị trí và theo dõi lộ trình: Hỗ trợ theo dõi và quản lý chuyến đi của xe máy, hàng hóa
+               hoặc người dùng.
+             </li>
+             <li>
+               Định hướng và chỉ đường: Giúp người dùng tìm đường đi tối ưu, đặc biệt trong các khu vực phức tạp.
+             </li>
+             <li>
+               Giám sát và quản lý tài sản: Cập nhật liên tục vị trí của xe, giúp bảo vệ tài sản khỏi trộm cắp.
+             </li>
+             <li>
+               Công tác cứu hộ và an ninh: Hỗ trợ nhanh chóng trong các tình huống khẩn cấp và cứu hộ.
+             </li>
+           </ul>
+           <p><strong>Lợi ích:</strong></p>
+           <ul>
+             <li>Định vị xe máy chống trộm hiệu quả.</li>
+             <li>Giúp người chủ phương tiện giám sát người thân mọi lúc mọi nơi.</li>
+             <li>Giúp bố mẹ quản lý con cái khi di chuyển.</li>
+             <li>Hỗ trợ doanh nghiệp kiểm soát hoạt động của nhân viên và nâng cao chất lượng dịch vụ.</li>
+             <li>Cung cấp thông tin quan trọng như điểm đỗ, lộ trình và quãng đường di chuyển.</li>
+             <li>Bảo vệ xe máy 24/24 khỏi nguy cơ trộm cắp.</li>
+           </ul>
+           <p><strong>Ưu điểm:</strong></p>
+           <ul>
+             <li>Thiết lập và thông báo ra - vào vùng an toàn.</li>
+             <li>Xem lại lịch sử hành trình di chuyển.</li>
+             <li>Không cần lắp đặt phức tạp: Ai cũng có thể tự lắp đặt được.</li>
+             <li>Thiết kế nhỏ gọn phù hợp cho xe máy.</li>
+             <li>Phần mềm quản lý bằng Tiếng Việt.</li>
+           </ul>
+         </div>
+       </section>
+       <!-- Phần Cứng -->
+       <section id="hardware">
+         <h2>Phần Cứng</h2>
+         <div class="product">
+           <h3>ESP32 NodeMCU LuaNode32 Module Thu Phát Wifi 38 Chân</h3>
+           <div class="product-images">
+             <figure>
+               <img src="images/esp32chan.webp" alt="Sơ đồ chân ESP32 NodeMCU" />
+               <figcaption>Sơ đồ chân ESP32 NodeMCU</figcaption>
+             </figure>
+             <figure>
+               <img src="images/esp32mat.webp" alt="Kích thước ESP32 NodeMCU" />
+               <figcaption>Kích thước ESP32 NodeMCU</figcaption>
+             </figure>
+           </div>
+           <p>
+             <strong>Mô tả:</strong> Kit RF thu phát Wifi ESP32 NodeMCU LuaNode32 được phát triển trên nền module
+             trung tâm là ESP32 với công nghệ Wifi, BLE và nhân ARM SoC tích hợp mới nhất hiện nay. Kit có
+             thiết kế phần cứng, firmware và cách sử dụng tương tự Kit NodeMCU ESP8266, với ưu điểm là dễ sử dụng
+             và có đầy đủ các chân kết nối. Đây là lựa chọn hàng đầu cho các nghiên cứu và ứng dụng về Wifi,
+             BLE, IoT, điều khiển và thu thập dữ liệu qua mạng.
+           </p>
+           <p><strong>Đặc điểm:</strong></p>
+           <ul>
+             <li>Khối lượng nhỏ, dễ dàng tích hợp vào sản phẩm khác</li>
+             <li>Hỗ trợ giao thức LWIP, Freertos với chức năng mạnh mẽ</li>
+             <li>Hỗ trợ ba chế độ: AP, STA và AP + STA</li>
+             <li>Hỗ trợ lập trình bằng Lua giúp dễ dàng phát triển ứng dụng</li>
+           </ul>
+         </div>
+         <div class="product">
+           <h3>Mạch Định Vị GPS NEO-8M</h3>
+           <div class="product-images">
+             <figure>
+               <img src="./images/m8nmat.jpg" alt="Mặt trước GPS NEO-8M" />
+               <figcaption>Mặt trước module GPS NEO-8M</figcaption>
+             </figure>
+             <figure>
+               <img src="./images/m8nsau.jpg" alt="Mặt sau GPS NEO-8M" />
+               <figcaption>Mặt sau module GPS NEO-8M</figcaption>
+             </figure>
+           </div>
+           <p>
+             <strong>Mô tả:</strong> Module NEO-8M GPS sử dụng hệ thống vệ tinh GPS của Mỹ, cho tốc độ xác định vị trí
+             nhanh và chính xác với mức năng lượng hoạt động thấp, phù hợp với các ứng dụng chạy pin.
+           </p>
+           <p><strong>Thông số kĩ thuật:</strong></p>
+           <ul>
+             <li>Nguồn hoạt động: 3.3-5.5V (nên sử dụng ở mức 3.3V)</li>
+             <li>Dòng hoạt động bình thường: 50 mA; ở trạng thái tiết kiệm: 30 mA</li>
+             <li>Giao tiếp: UART/TTL (có thể dùng module UART TTL CP2102)</li>
+             <li>Baud rate: 1200, 2400, 4800, 19200, 38400, 9600 (mặc định), 57600, 115200,…</li>
+             <li>Kích cỡ module: 39x25.5mm</li>
+           </ul>
+           <p><strong>Ứng dụng:</strong></p>
+           <ul>
+             <li>Xác định tọa độ (kinh tuyến, vĩ tuyến) với sai số &lt; 1m</li>
+             <li>Xác định thời gian quốc tế từ đồng hồ vệ tinh</li>
+             <li>Xác định độ cao với 4 vệ tinh</li>
+             <li>Tính tốc độ, hướng di chuyển của vật thể</li>
+             <li>Tính toán khoảng cách giữa 2 điểm và diện tích</li>
+           </ul>
+         </div>
+         <div class="product">
+           <h3>Pin Li-Po 3.7V 5000mAh (Li-Polyme)</h3>
+           <div class="product-images">
+             <figure>
+               <img src="./images/pinlipo3,7.webp" alt="Pin Li-Po 3.7V 5000mAh" />
+               <figcaption>Pin Li-Po 3.7V 5000mAh</figcaption>
+             </figure>
+           </div>
+           <p><strong>Thông số kỹ thuật:</strong></p>
+           <ul>
+             <li>Loại pin: Cell pin, có mạch bảo vệ (2 dây hoặc 3 dây – NTC)</li>
+             <li>Kích thước: 9.5 x 54 x 65 mm</li>
+             <li>Mã sản phẩm: 955465 - 955565</li>
+             <li>Dung lượng: 5000mAh</li>
+             <li>Điện thế ra: 3.7V, Điện áp sạc: 4.2V</li>
+             <li>Trọng lượng: ~75g</li>
+             <li>Thời gian sạc: 0.5C (tiêu chuẩn) / 1C (sạc nhanh)</li>
+             <li>Dòng sạc tối đa: 1C; Dòng xả liên tục: 0.5C; Dòng xả tối đa: 1C</li>
+             <li>Điện áp cắt: 2.7V</li>
+           </ul>
+           <p>
+             <strong>Ứng dụng:</strong> Cung cấp nguồn cho các thiết bị điện tử như đồng hồ thông minh, tai nghe,
+             loa bluetooth, đồng hồ, điều khiển, bàn phím, chuột máy tính, đồ chơi trẻ em, robot lập trình,
+             máy ảnh, máy ghi âm, máy nghe nhạc, cân điện tử, cửa khóa điện tử, thiết bị định vị GPS, camera
+             hành trình, v.v.
+           </p>
+         </div>
+       </section>
+       <section id="software">
+        <h2>Phần Mềm</h2>
+        <div class="product">
+          <p>
+            <strong>Mô tả:</strong> Định vị vị trí của xe (hoặc vật) thông qua GPS. Bộ định vị sẽ gửi dữ liệu
+            vị trí, khoảng cách, tốc độ và thời gian theo thời gian thực lên web với sai số chỉ trong bán kính 2m.
+          </p>
+          <p>
+            <strong>Web:</strong> Hệ thống web nhận tín hiệu từ GPS và hiển thị thông tin vị trí, khoảng cách, tốc độ
+            hiện tại trên bản đồ vệ tinh, giúp người dùng theo dõi và quản lý vị trí của xe hoặc vật một cách trực quan.
+          </p>
+        </div>
+        
+        <div class="product">
+          <h3>Arduino IDE</h3>
+          <p>
+            <strong>Mô tả:</strong> Arduino IDE là phần mềm mã nguồn mở dùng để viết, biên dịch và tải mã lên các bo mạch Arduino.
+            Nó hỗ trợ lập trình bằng C/C++ và có giao diện đơn giản, dễ sử dụng.
+          </p>
+          <p><strong>Các tính năng chính:</strong></p>
+          <ul>
+            <li>Hỗ trợ nhiều nền tảng (Windows, macOS, Linux).</li>
+            <li>Cung cấp thư viện phong phú để điều khiển các thiết bị ngoại vi.</li>
+            <li>Giao diện đơn giản, phù hợp cho người mới bắt đầu.</li>
+            <li>Tích hợp Serial Monitor để debug và giao tiếp với bo mạch.</li>
+          </ul>
+        </div>
+        
+        <div class="product">
+          <h3>Visual Studio Code (VS Code)</h3>
+          <p>
+            <strong>Mô tả:</strong> VS Code là trình soạn thảo mã nguồn mạnh mẽ, nhẹ và miễn phí, được phát triển bởi Microsoft.
+            Nó hỗ trợ đa ngôn ngữ lập trình và có thể mở rộng thông qua các extension.
+          </p>
+          <p><strong>Các tính năng chính:</strong></p>
+          <ul>
+            <li>Hỗ trợ nhiều ngôn ngữ lập trình như JavaScript, Python, C++, v.v.</li>
+            <li>Gợi ý mã thông minh với IntelliSense.</li>
+            <li>Tích hợp Git giúp quản lý phiên bản dễ dàng.</li>
+            <li>Hỗ trợ Debugging và Terminal tích hợp.</li>
+            <li>Có kho extension phong phú giúp mở rộng tính năng.</li>
+          </ul>
+        </div>
+        
+        <div class="product">
+          <h3>Proteus</h3>
+          <p>
+            <strong>Mô tả:</strong> Proteus là phần mềm mô phỏng mạch điện tử và thiết kế PCB mạnh mẽ, hỗ trợ thiết kế và kiểm tra
+            hoạt động của vi điều khiển, cảm biến và linh kiện điện tử.
+          </p>
+          <p><strong>Các tính năng chính:</strong></p>
+          <ul>
+            <li>Mô phỏng mạch điện tử trong thời gian thực.</li>
+            <li>Hỗ trợ thiết kế PCB với độ chính xác cao.</li>
+            <li>Thư viện linh kiện phong phú, bao gồm cả vi điều khiển và cảm biến.</li>
+            <li>Tích hợp khả năng nạp mã trực tiếp vào vi điều khiển để kiểm tra hoạt động.</li>
+          </ul>
+        </div>
+      </section>
+     </div>
+     <div id="imgModal" class="modal">
+       <span class="modal-close" onclick="closeModal()">&times;</span>
+       <img class="modal-content" id="modalImage" alt="Phóng to ảnh" />
+     </div>
+     <script>
+       function toggleMenu() {
+         var menu = document.getElementById('nav-menu');
+         menu.classList.toggle('show');
+       }
+       function toggleControls() {
+         var controlsMenu = document.querySelector('.controls-menu');
+         controlsMenu.classList.toggle('show');
+       }
+        document.querySelectorAll('.controls-menu a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetSection = document.getElementById(targetId);
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+      document.querySelectorAll('figure img').forEach(function (img) {
+         img.addEventListener('click', function () {
+           var modal = document.getElementById('imgModal');
+           var modalImg = document.getElementById('modalImage');
+           modal.style.display = 'block';
+           modalImg.src = this.src;
+         });
+       });
+       function closeModal() {
+         document.getElementById('imgModal').style.display = 'none';
+       }
+       document.getElementById('imgModal').addEventListener('click', function (e) {
+         if (e.target === this) {
+           closeModal();
+         }
+       });
+               // Hiển thị/nấp nút quay về đầu trang
+               window.onscroll = function() {
+            const backToTop = document.getElementById("backToTop");
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTop.classList.add("visible");
+            } else {
+                backToTop.classList.remove("visible");
+            }
+        };
+
+        // Cuộn lên đầu trang khi nhấn nút
+        document.getElementById("backToTop").onclick = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        // Xử lý chuyển chế độ tối/sáng
+        const modeToggle = document.querySelector('.mode-toggle');
+        const body = document.body;
+
+        function toggleDarkMode() {
+          body.classList.toggle('dark-mode');
+          const isDarkMode = body.classList.contains('dark-mode');
+          modeToggle.innerHTML = `<i class="fas fa-${isDarkMode ? 'moon' : 'sun'}"></i>`;
+          localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+        }
+
+        // Khôi phục trạng thái từ localStorage
+        if (localStorage.getItem('darkMode') === 'enabled') {
+          body.classList.add('dark-mode');
+          modeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+
+        modeToggle.addEventListener('click', toggleDarkMode);
+     </script>
+   </body>
+ </html>

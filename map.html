@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GPS Nhom2</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="./styles/bando.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img src="./images/hvnn.png" alt="Logo Học Viện Nông Nghiệp Việt Nam">
+        </div>
+        <div class="header-title">
+            <h1>GPS Nhóm 2</h1>
+        </div>
+        <nav class="main-menu">
+            <div class="menu-toggle" onclick="toggleMenu()" aria-label="Mở menu điều hướng">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul id="nav-menu">
+                <li><a href="map.html">Bản Đồ</a></li>
+                <li><a href="device.html">Device</a></li>
+                <li><a href="lienhe.html">Liên Hệ</a></li>
+            </ul>
+        </nav>
+        <button id="darkMode" aria-label="Chuyển chế độ tối/sáng">
+            <i class="fas fa-sun"></i>
+        </button>
+    </header>
+
+    <div id="map"></div>
+    <div class="info-panel">
+        <h3>Thông tin thiết bị</h3>
+        <p><strong>Vị trí:</strong> <span id="location">Đang tải...</span></p>
+        <p><strong>Tốc độ:</strong> <span id="speed">0 km/h</span></p>
+        <p><strong>Ngày:</strong> <span id="date">Đang tải...</span></p>
+        <p><strong>Giờ:</strong> <span id="time">00:00:00</span></p>
+        <p><strong>Khoảng cách:</strong> <span id="distance">0km.</span></p>
+    </div>
+    <div class="route-info-panel">
+        <h3>Thông tin tuyến đường</h3>
+        <p><strong>Khoảng cách:</strong> <span id="route-distance">Đang tải...</span></p>
+        <p><strong>Thời gian:</strong> <span id="route-duration">Đang tải...</span></p>
+        <div id="route-instructions"></div>
+    </div>
+
+    <div class="controls-panel">
+        <button id="toggleControls" title="Mở bảng điều khiển" class="control-btn">
+            <i style="font-size: 20px;" class="fas fa-cog"></i>
+        </button>
+        <div class="controls-content" id="controlsContent">
+            <div class="control-item">
+                <label for="replaySpeed">Tốc độ phát lại (ms):</label>
+                <input type="range" id="replaySpeed" min="500" max="1500" value="300" step="50">
+                <span id="replaySpeedValue">250</span>
+            </div>
+            <button id="satelliteView"><i class="fas fa-satellite"></i> Chế độ vệ tinh (S)</button>
+            <button id="centerUserLocation"><i class="fas fa-location-crosshairs"></i> Vị trí của tôi</button>
+            <button id="trackDevice"><i class="fas fa-location-arrow"></i> Vị Trí GPS</button>
+            <button id="showRoute"><i class="fas fa-route"></i> Chỉ đường</button>
+            <button id="replayRoute"><i class="fas fa-play"></i> Phát lại tuyến đường (R)</button>
+            <button id="clearHistory"><i class="fas fa-trash"></i> Xóa lịch sử</button>
+            <button id="logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+        </div>
+    </div>
+
+    <div id="replayProgress" style="display: none; width: 100%; height: 10px; background: #ddd; position: fixed; bottom: 0; z-index: 1000;">
+        <div id="progressBar" style="width: 0%; height: 100%; background: #007AFF;"></div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+    <div class="loading-overlay" id="loading">
+        <i class="fas fa-spinner fa-spin"></i> Đang tải dữ liệu...
+    </div>
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/leaflet.glify"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script type="module" src="./login/firebase-config.js"></script>
+    <script type="module" src="./login/auth.js"></script>
+    <script type="module" src="./map/main.js"></script>
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById('nav-menu');
+            menu.classList.toggle('show');
+        }
+        document.querySelectorAll('#nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('nav-menu').classList.remove('show');
+            });
+        });
+    </script>
+</body>
+</html>

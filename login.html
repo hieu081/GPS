@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Đăng nhập GPS Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/login.css">
+</head>
+<body>
+  <body>
+    <!-- Nút chuyển đổi chế độ sáng/tối -->
+    <button class="theme-toggle" id="theme-toggle">
+      <i class="bx bx-moon"></i>
+    </button>
+  </body>
+  <div>
+  </div>
+  <div class="container">
+    <img src="./images/hvnn.png" alt="Logo" class="logo">
+    <!-- Form Đăng nhập -->
+    <div class="form-box login" id="login-form">
+      <form action="#">
+        <h1>Đăng nhập</h1>
+        <div class="input-box">
+          <input type="text" id="login-email" placeholder="Email" required>
+          <i class="bx bxs-user"></i>
+        </div>
+        <div class="error-message" id="login-error"></div>
+        <div class="input-box">
+          <input type="password" id="login-password" placeholder="Mật khẩu" required>
+          <i class="bx bxs-lock-alt"></i>
+          <i class="bx bxs-show toggle-password" data-input="login-password"></i>
+        </div>
+        <div class="forgot-link">
+          <a href="#" id="forgot-password">Quên mật khẩu?</a>
+        </div>
+        <button type="button" class="btn" id="login-button">
+          <span class="button-text">Đăng nhập</span>
+        </button>
+        <p style="color: #f7d61e; font-size: 18px;">Hoặc Đăng Nhâp Bằng</p>
+        <div class="social-icons">
+          <a href="#" id="google-login"><i class="bx bxl-google"></i></a>
+        </div>
+      </form>
+    </div>
+
+    <!-- Form Đăng ký -->
+    <div class="form-box register hidden" id="signup-form">
+      <form action="#">
+        <h1>Đăng ký</h1>
+        <div class="input-box">
+          <input type="email" id="signup-email" placeholder="Email" required>
+          <i class="bx bxs-envelope"></i>
+        </div>
+        <div class="error-message" id="signup-error"></div>
+        <div class="input-box">
+          <input type="password" id="signup-password" placeholder="Mật khẩu" required>
+          <i class="bx bxs-lock-alt"></i>
+          <i class="bx bxs-show toggle-password" data-input="signup-password"></i>
+        </div>
+        <div class="password-requirements" id="password-requirements">
+          <div class="requirement" id="requirement-length">Yêu Cầu 8 Ký Tự</div>
+          <div class="requirement" id="requirement-uppercase">Ít nhất 1 chữ hoa</div>
+          <div class="requirement" id="requirement-number">Ít nhất 1 chữ số</div>
+        </div>
+        <div class="input-box">
+          <input type="password" id="signup-password-confirm" placeholder="Xác nhận mật khẩu" required>
+          <i class="bx bxs-lock-alt"></i>
+          <i class="bx bxs-show toggle-password" data-input="signup-password-confirm"></i>
+        </div>
+        <button type="button" class="btn" id="signup-button">
+          <span class="button-text">Đăng ký</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Form Quên mật khẩu -->
+    <div class="form-box hidden" id="forgot-password-form">
+      <form>
+        <h1>Quên mật khẩu</h1>
+        <div class="input-box">
+          <input type="email" id="reset-email" placeholder="Email" required>
+          <i class="bx bxs-envelope"></i>
+        </div>
+        <div class="error-message" id="forgot-error"></div>
+        <button type="button" class="btn" id="reset-button">Gửi yêu cầu</button>
+        <div class="forgot-link mt-3">
+          <a href="#" id="back-to-login">Quay lại đăng nhập</a>
+        </div>
+      </form>
+    </div>
+
+    <!-- Màn hình xác minh email -->
+    <div class="form-box hidden" id="verification-screen">
+      <form>
+        <h1>Xác minh Email</h1>
+        <p style="font-size: 20px;color: #0ad81b;">Chúng tôi đã gửi liên kết xác minh đến <span id="verification-email-display"></span></p>
+        <p style="font-size: 18px;color: #0ad81b;">Vui lòng kiểm tra hộp thư của bạn và làm theo hướng dẫn.</p>
+        <div id="verification-error" class="error-message" style="display: none;"></div>
+        <button type="button" class="btn" id="resend-verification" disabled>
+          Gửi lại email xác minh (<span id="countdown">30</span>s)
+        </button>
+        <button type="button" class="btn mt-3" id="logout-after-verification">
+          Đăng xuất
+        </button>
+      </form>
+    </div>
+
+    <!-- Panel chuyển đổi -->
+    <div class="toggle-box">
+      <div class="toggle-panel toggle-left">
+        <h1>Xin chào!</h1>
+        <p>Bạn chưa có tài khoản?</p>
+        <button class="btn" id="register-btn">Đăng ký</button>
+      </div>
+      <div class="toggle-panel toggle-right">
+        <h1>Chào mừng trở lại!</h1>
+        <p>Bạn đã có tài khoản?</p>
+        <button class="btn" id="login-btn">Đăng nhập</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Import file dangnhap.js để xử lý giao diện và sự kiện -->
+  <script type="module" src="./login/dangnhap.js"></script>
+</body>
+</html>
